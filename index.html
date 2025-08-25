@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diclomec Ağrı Avı</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .login-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-subtitle {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Game Screen */
+        .game-screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .game-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .control-btn {
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        .game-area {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .product-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-item:before {
+            content: "✓";
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .cream-tube {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(180deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 10px 10px 25px 25px;
+            margin: 2rem auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cream-tube:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 50%;
+        }
+        
+        .cream-tube:after {
+            content: "KREM";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .play-area {
+            flex: 1;
+            position: relative;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            overflow: hidden;
+        }
+        
+        .human-model {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 500px;
+        }
+        
+        .body-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+        }
+        
+        .pain-point {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff4757 0%, #ff3742 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            animation: pulse 1s infinite;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
+            z-index: 10;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .pain-point.clicked {
+            animation: disappear 0.3s ease-out forwards;
+        }
+        
+        @keyframes disappear {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        
+        .cursor-cream {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(230, 230, 230, 0.6) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 20;
+            border: 2px solid #667eea;
+            display: none;
+        }
+        
+        .cursor-cream::after {
+            content: "Diclomec";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            font-weight: 600;
+            color: #667eea;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 4px;
+            border-radius: 3px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        
+        .start-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .start-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .start-description {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .start-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        
+        .game-over-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .final-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+        
+        .timer-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+            transition: width 0.1s linear;
+            border-radius: 5px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+                padding: 1rem;
+            }
+            
+            .sidebar-title {
+                font-size: 1.1rem;
+            }
+            
+            .product-name {
+                font-size: 1.2rem;
+            }
+            
+            .feature-item {
+                font-size: 0.8rem;
+            }
+            
+            .cream-tube {
+                width: 60px;
+                height: 90px;
+                margin: 1rem auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-header {
+                padding: 0.5rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .game-title {
+                font-size: 1.4rem;
+            }
+            
+            .game-stats {
+                gap: 1rem;
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem;
+            }
+            
+            .game-controls {
+                gap: 0.5rem;
+            }
+            
+            .control-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .sidebar {
+                width: 180px;
+                padding: 0.8rem;
+            }
+            
+            .human-model {
+                width: 220px;
+                height: 380px;
+            }
+            
+            .login-card {
+                margin: 1rem;
+                padding: 2rem;
+                min-width: auto;
+            }
+            
+            .cursor-cream {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .cursor-cream::after {
+                font-size: 9px;
+                top: -22px;
+            }
+            
+            .timer-bar {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .game-area {
+                top: 120px;
+            }
+            
+            .human-model {
+                width: 200px;
+                height: 350px;
+            }
+            
+            .pain-point {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .cursor-cream {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .cursor-cream::after {
+                font-size: 10px;
+                top: -24px;
+            }
+            
+            .start-card, .game-over-card {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .start-title {
+                font-size: 2rem;
+            }
+            
+            .start-description {
+                font-size: 1rem;
+            }
+            
+            .timer-bar {
+                width: 200px;
+                bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-header {
+                padding: 0.5rem;
+            }
+            
+            .game-title {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.6rem;
+            }
+            
+            .human-model {
+                width: 180px;
+                height: 320px;
+            }
+            
+            .pain-point {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .cursor-cream {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .cursor-cream::after {
+                font-size: 11px;
+                top: -26px;
+            }
+            
+            .login-card {
+                padding: 1.5rem;
+            }
+            
+            .login-title {
+                font-size: 2rem;
+            }
+            
+            .start-card, .game-over-card {
+                padding: 1.5rem;
+            }
+            
+            .start-title {
+                font-size: 1.8rem;
+            }
+            
+            .timer-bar {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div class="login-screen" id="loginScreen">
+            <div class="login-card">
+                <h1 class="login-title">Diclomec</h1>
+                <p class="login-subtitle">Ağrı Avı Oyunu</p>
+                
+                <div class="input-group">
+                    <label class="input-label">Kullanıcı Adı</label>
+                    <input type="text" class="input-field" id="username" placeholder="Kullanıcı adınızı girin">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Şifre</label>
+                    <input type="password" class="input-field" id="password" placeholder="Şifrenizi girin">
+                </div>
+                
+                <button class="login-btn" onclick="login()">Giriş Yap</button>
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+        </div>
+        
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="game-header">
+                <h1 class="game-title">Diclomec Ağrı Avı</h1>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="score">0</div>
+                        <div class="stat-label">Puan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="level">1</div>
+                        <div class="stat-label">Seviye</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="timeLeft">60</div>
+                        <div class="stat-label">Süre</div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="control-btn" onclick="pauseGame()">Duraklat</button>
+                    <button class="control-btn" onclick="restartGame()">Yeniden</button>
+                </div>
+            </div>
+            
+            <div class="game-area">
+                <div class="sidebar">
+                    <h3 class="sidebar-title">Diclomec Krem</h3>
+                    
+                    <div class="product-info">
+                        <div class="product-name">Diclomec</div>
+                        <ul class="feature-list">
+                            <li class="feature-item">Gün boyunca güçlü etki</li>
+                            <li class="feature-item">Serinletici etki</li>
+                            <li class="feature-item">75mg diklofenak sodyum</li>
+                            <li class="feature-item">%2.32 diklofenak dietilamonyum</li>
+                            <li class="feature-item">Adonia seansı</li>
+                            <li class="feature-item">Hızlı emilim</li>
+                            <li class="feature-item">x2 etkili formül</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cream-tube"></div>
+                </div>
+                
+                <div class="play-area" id="playArea">
+                    <div class="human-model">
+                        <svg class="body-svg" viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Head -->
+                            <ellipse cx="150" cy="60" rx="35" ry="45" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            
+                            <!-- Hair -->
+                            <path d="M 115 35 Q 150 15 185 35 Q 180 25 150 20 Q 120 25 115 35" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+                            
+                            <!-- Eyebrows -->
+                            <path d="M 132 48 Q 140 46 148 48" stroke="#8b4513" stroke-width="2" fill="none"/>
+                            <path d="M 152 48 Q 160 46 168 48" stroke="#8b4513" stroke-width="2" fill="none"/>
+                            
+                            <!-- Eyes -->
+                            <ellipse cx="140" cy="55" rx="4" ry="6" fill="white"/>
+                            <ellipse cx="160" cy="55" rx="4" ry="6" fill="white"/>
+                            <circle cx="140" cy="55" r="2" fill="#2d3748"/>
+                            <circle cx="160" cy="55" r="2" fill="#2d3748"/>
+                            <circle cx="141" cy="54" r="0.5" fill="white"/>
+                            <circle cx="161" cy="54" r="0.5" fill="white"/>
+                            
+                            <!-- Eyelashes -->
+                            <path d="M 136 52 L 135 50 M 140 51 L 140 49 M 144 52 L 145 50" stroke="#2d3748" stroke-width="0.5"/>
+                            <path d="M 156 52 L 155 50 M 160 51 L 160 49 M 164 52 L 165 50" stroke="#2d3748" stroke-width="0.5"/>
+                            
+                            <!-- Nose -->
+                            <ellipse cx="150" cy="62" rx="2" ry="3" fill="#f7a399"/>
+                            <path d="M 148 64 L 149 65 M 151 65 L 152 64" stroke="#e8a598" stroke-width="0.5" fill="none"/>
+                            
+                            <!-- Mouth -->
+                            <path d="M 145 68 Q 150 72 155 68" stroke="#e8a598" stroke-width="1.5" fill="none"/>
+                            <path d="M 147 70 Q 150 71 153 70" stroke="#d69e93" stroke-width="0.8" fill="none"/>
+                            
+                            <!-- Neck -->
+                            <rect x="140" y="100" width="20" height="25" fill="#fdbcb4" stroke="#e8a598" stroke-width="1"/>
+                            
+                            <!-- Torso -->
+                            <ellipse cx="150" cy="200" rx="60" ry="80" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+
+                            
+                            <!-- Arms -->
+                            <ellipse cx="90" cy="160" rx="20" ry="60" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <ellipse cx="210" cy="160" rx="20" ry="60" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+
+                            
+                            <!-- Forearms -->
+                            <ellipse cx="75" cy="240" rx="15" ry="45" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <ellipse cx="225" cy="240" rx="15" ry="45" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+
+                            
+                            <!-- Hands -->
+                            <ellipse cx="70" cy="285" rx="8" ry="12" fill="#fdbcb4" stroke="#e8a598" stroke-width="1"/>
+                            <ellipse cx="230" cy="285" rx="8" ry="12" fill="#fdbcb4" stroke="#e8a598" stroke-width="1"/>
+                            <!-- Fingers -->
+                            <rect x="67" y="295" width="2" height="8" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <rect x="70" y="297" width="2" height="10" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <rect x="73" y="296" width="2" height="9" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <rect x="227" y="295" width="2" height="8" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <rect x="230" y="297" width="2" height="10" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <rect x="233" y="296" width="2" height="9" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            
+                            <!-- Legs -->
+                            <ellipse cx="130" cy="340" rx="25" ry="70" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <ellipse cx="170" cy="340" rx="25" ry="70" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+
+                            
+
+                            
+                            <!-- Lower legs -->
+                            <ellipse cx="125" cy="430" rx="20" ry="50" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <ellipse cx="175" cy="430" rx="20" ry="50" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+
+                            
+
+                            
+                            <!-- Feet -->
+                            <ellipse cx="120" cy="485" rx="15" ry="10" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <ellipse cx="180" cy="485" rx="15" ry="10" fill="#fdbcb4" stroke="#e8a598" stroke-width="2"/>
+                            <!-- Toes -->
+                            <ellipse cx="110" cy="485" rx="3" ry="2" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                            <ellipse cx="190" cy="485" rx="3" ry="2" fill="#fdbcb4" stroke="#e8a598" stroke-width="0.5"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="cursor-cream" id="cursorCream"></div>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timerFill"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Start Screen -->
+            <div class="start-screen" id="startScreen">
+                <div class="start-card">
+                    <h2 class="start-title">Ağrı Avına Hazır mısın?</h2>
+                    <p class="start-description">
+                        Kırmızı ağrı noktalarını hızlıca temizle!<br>
+                        Mouse'u basılı tutarak veya parmağınla sürerek ağrı noktalarını sil.<br>
+                        30 saniyede 5000+ puan hedefle!
+                    </p>
+                    <button class="start-btn" onclick="startGame()">Oyunu Başlat</button>
+                </div>
+            </div>
+            
+            <!-- Game Over Screen -->
+            <div class="game-over-screen" id="gameOverScreen">
+                <div class="game-over-card">
+                    <h2 class="start-title">Oyun Bitti!</h2>
+                    <div class="final-score" id="finalScore">0</div>
+                    <p class="start-description">Harika bir performans sergileddin!</p>
+                    <button class="start-btn" onclick="restartGame()">Tekrar Oyna</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game Variables
+        let gameState = {
+            isPlaying: false,
+            isPaused: false,
+            isWiping: false,
+            score: 0,
+            level: 1,
+            timeLeft: 60,
+            painPoints: [],
+            gameTimer: null,
+            spawnTimer: null,
+            difficultyTimer: null
+        };
+
+        // Login System
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (username === 'Diclomec' && password === 'Fortjel') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('gameScreen').style.display = 'block';
+                initializeGame();
+            } else {
+                errorMessage.textContent = 'Hatalı kullanıcı adı veya şifre!';
+                setTimeout(() => {
+                    errorMessage.textContent = '';
+                }, 3000);
+            }
+        }
+
+        // Initialize Game
+        function initializeGame() {
+            const playArea = document.getElementById('playArea');
+            
+            // Mouse tracking for cream cursor
+            playArea.addEventListener('mousemove', (e) => {
+                if (gameState.isPlaying) {
+                    const cursorCream = document.getElementById('cursorCream');
+                    const rect = playArea.getBoundingClientRect();
+                    cursorCream.style.left = (e.clientX - rect.left - 15) + 'px';
+                    cursorCream.style.top = (e.clientY - rect.top - 15) + 'px';
+                    cursorCream.style.display = 'block';
+                }
+            });
+            
+            // Mouse down/up for wiping
+            playArea.addEventListener('mousedown', (e) => {
+                if (gameState.isPlaying) {
+                    gameState.isWiping = true;
+                    document.getElementById('cursorCream').style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.6) 100%)';
+                }
+            });
+            
+            playArea.addEventListener('mouseup', () => {
+                gameState.isWiping = false;
+                document.getElementById('cursorCream').style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(230, 230, 230, 0.6) 100%)';
+            });
+            
+            playArea.addEventListener('mouseleave', () => {
+                document.getElementById('cursorCream').style.display = 'none';
+            });
+            
+            // Touch support for mobile
+            playArea.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (gameState.isPlaying) {
+                    gameState.isWiping = true;
+                    document.getElementById('cursorCream').style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.6) 100%)';
+                }
+            });
+            
+            playArea.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (gameState.isPlaying) {
+                    const touch = e.touches[0];
+                    const cursorCream = document.getElementById('cursorCream');
+                    const rect = playArea.getBoundingClientRect();
+                    cursorCream.style.left = (touch.clientX - rect.left - 15) + 'px';
+                    cursorCream.style.top = (touch.clientY - rect.top - 15) + 'px';
+                    cursorCream.style.display = 'block';
+                }
+            });
+            
+            playArea.addEventListener('touchend', () => {
+                gameState.isWiping = false;
+                document.getElementById('cursorCream').style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(230, 230, 230, 0.6) 100%)';
+            });
+        }
+
+        // Start Game
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            gameState.isPlaying = true;
+            gameState.isPaused = false;
+            gameState.score = 0;
+            gameState.level = 1;
+            gameState.timeLeft = 30;
+            
+            updateUI();
+            startGameTimer();
+            startPainPointSpawning();
+        }
+
+        // Game Timer
+        function startGameTimer() {
+            gameState.gameTimer = setInterval(() => {
+                if (!gameState.isPaused) {
+                    gameState.timeLeft--;
+                    updateUI();
+                    updateTimerBar();
+                    
+                    if (gameState.timeLeft <= 0) {
+                        endGame();
+                    }
+                }
+            }, 1000);
+        }
+
+        // Update Timer Bar
+        function updateTimerBar() {
+            const timerFill = document.getElementById('timerFill');
+            const percentage = (gameState.timeLeft / 30) * 100;
+            timerFill.style.width = percentage + '%';
+            
+            if (percentage < 20) {
+                timerFill.style.background = 'linear-gradient(90deg, #f56565 0%, #e53e3e 100%)';
+            } else if (percentage < 50) {
+                timerFill.style.background = 'linear-gradient(90deg, #ed8936 0%, #dd6b20 100%)';
+            } else {
+                timerFill.style.background = 'linear-gradient(90deg, #48bb78 0%, #38a169 100%)';
+            }
+        }
+
+        // Spawn Pain Points
+        function startPainPointSpawning() {
+            const spawnRate = Math.max(400 - (gameState.level * 30), 150);
+            
+            gameState.spawnTimer = setInterval(() => {
+                if (!gameState.isPaused && gameState.isPlaying) {
+                    createPainPoint();
+                }
+            }, spawnRate);
+            
+            // Update level based on time elapsed (every 3 seconds)
+            gameState.difficultyTimer = setInterval(() => {
+                if (!gameState.isPaused && gameState.isPlaying) {
+                    // Calculate level based on time elapsed
+                    const timeElapsed = 30 - gameState.timeLeft;
+                    const newLevel = Math.min(Math.floor(timeElapsed / 3) + 1, 10);
+                    
+                    if (newLevel !== gameState.level) {
+                        gameState.level = newLevel;
+                        updateUI();
+                        
+                        // Restart spawning with new difficulty
+                        clearInterval(gameState.spawnTimer);
+                        startPainPointSpawning();
+                    }
+                }
+            }, 100);
+        }
+
+        // Create Pain Point
+        function createPainPoint() {
+            const playArea = document.getElementById('playArea');
+            const humanModel = document.querySelector('.human-model');
+            const modelRect = humanModel.getBoundingClientRect();
+            const playAreaRect = playArea.getBoundingClientRect();
+            
+            // Define body areas where pain points can appear (more precise body mapping)
+            const bodyAreas = [
+                { x: 0.35, y: 0.08, w: 0.3, h: 0.12 }, // Head
+                { x: 0.42, y: 0.18, w: 0.16, h: 0.08 }, // Neck
+                { x: 0.3, y: 0.28, w: 0.4, h: 0.25 }, // Torso
+                { x: 0.15, y: 0.25, w: 0.12, h: 0.2 }, // Left upper arm
+                { x: 0.73, y: 0.25, w: 0.12, h: 0.2 }, // Right upper arm
+                { x: 0.08, y: 0.42, w: 0.1, h: 0.15 }, // Left forearm
+                { x: 0.82, y: 0.42, w: 0.1, h: 0.15 }, // Right forearm
+                { x: 0.35, y: 0.58, w: 0.15, h: 0.25 }, // Left leg
+                { x: 0.5, y: 0.58, w: 0.15, h: 0.25 }, // Right leg
+                { x: 0.32, y: 0.8, w: 0.12, h: 0.15 }, // Left lower leg
+                { x: 0.56, y: 0.8, w: 0.12, h: 0.15 }, // Right lower leg
+            ];
+            
+            const area = bodyAreas[Math.floor(Math.random() * bodyAreas.length)];
+            const modelWidth = modelRect.width;
+            const modelHeight = modelRect.height;
+            
+            const x = (modelRect.left - playAreaRect.left) + (area.x * modelWidth) + (Math.random() * area.w * modelWidth);
+            const y = (modelRect.top - playAreaRect.top) + (area.y * modelHeight) + (Math.random() * area.h * modelHeight);
+            
+            const painPoint = document.createElement('div');
+            painPoint.className = 'pain-point';
+            painPoint.style.left = x + 'px';
+            painPoint.style.top = y + 'px';
+            
+            const pointId = Date.now() + Math.random();
+            painPoint.dataset.id = pointId;
+            
+            // Hover/Touch handler for wiping effect
+            const handleWipe = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (gameState.isWiping) {
+                    hitPainPoint(painPoint);
+                }
+            };
+            
+            painPoint.addEventListener('mouseenter', handleWipe);
+            painPoint.addEventListener('touchmove', handleWipe);
+            
+            playArea.appendChild(painPoint);
+            gameState.painPoints.push({ element: painPoint, id: pointId });
+            
+            // Auto-remove after some time based on difficulty (faster disappearing)
+            const lifetime = Math.max(2000 - (gameState.level * 150), 800);
+            setTimeout(() => {
+                removePainPoint(pointId);
+            }, lifetime);
+        }
+
+        // Hit Pain Point
+        function hitPainPoint(painPoint) {
+            if (!gameState.isPlaying || gameState.isPaused) return;
+            
+            painPoint.classList.add('clicked');
+            
+            // Calculate score based on level and timing (optimized for target achievement)
+            const baseScore = 35; // Increased base score
+            const levelBonus = gameState.level * 8; // Increased level bonus
+            const speedBonus = Math.floor(gameState.timeLeft * 2); // Increased speed bonus
+            const totalScore = baseScore + levelBonus + speedBonus;
+            
+            gameState.score += totalScore;
+            updateUI();
+            
+            // Show score popup
+            showScorePopup(painPoint, totalScore);
+            
+            // Remove from array and DOM
+            const pointId = painPoint.dataset.id;
+            removePainPoint(pointId);
+        }
+
+        // Show Score Popup
+        function showScorePopup(painPoint, score) {
+            const popup = document.createElement('div');
+            popup.textContent = '+' + score;
+            popup.style.cssText = `
+                position: absolute;
+                left: ${painPoint.style.left};
+                top: ${painPoint.style.top};
+                color: #48bb78;
+                font-weight: bold;
+                font-size: 1.2rem;
+                pointer-events: none;
+                z-index: 30;
+                animation: scoreFloat 1s ease-out forwards;
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes scoreFloat {
+                    0% { transform: translateY(0); opacity: 1; }
+                    100% { transform: translateY(-30px); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.getElementById('playArea').appendChild(popup);
+            
+            setTimeout(() => {
+                popup.remove();
+                style.remove();
+            }, 1000);
+        }
+
+        // Remove Pain Point
+        function removePainPoint(pointId) {
+            const index = gameState.painPoints.findIndex(p => p.id == pointId);
+            if (index !== -1) {
+                const painPoint = gameState.painPoints[index];
+                if (painPoint.element && painPoint.element.parentNode) {
+                    painPoint.element.remove();
+                }
+                gameState.painPoints.splice(index, 1);
+            }
+        }
+
+        // Update UI
+        function updateUI() {
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('timeLeft').textContent = gameState.timeLeft;
+        }
+
+        // Pause Game
+        function pauseGame() {
+            if (!gameState.isPlaying) return;
+            
+            gameState.isPaused = !gameState.isPaused;
+            const btn = event.target;
+            btn.textContent = gameState.isPaused ? 'Devam Et' : 'Duraklat';
+            
+            if (gameState.isPaused) {
+                document.getElementById('cursorCream').style.display = 'none';
+            }
+        }
+
+        // Restart Game
+        function restartGame() {
+            // Clear all timers
+            clearInterval(gameState.gameTimer);
+            clearInterval(gameState.spawnTimer);
+            clearInterval(gameState.difficultyTimer);
+            
+            // Clear all pain points
+            gameState.painPoints.forEach(point => {
+                if (point.element && point.element.parentNode) {
+                    point.element.remove();
+                }
+            });
+            gameState.painPoints = [];
+            
+            // Reset game state
+            gameState.isPlaying = false;
+            gameState.isPaused = false;
+            gameState.isWiping = false;
+            gameState.score = 0;
+            gameState.level = 1;
+            gameState.timeLeft = 30;
+            
+            // Hide game over screen and show start screen
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'flex';
+            
+            // Reset UI
+            updateUI();
+            document.getElementById('timerFill').style.width = '100%';
+            document.getElementById('timerFill').style.background = 'linear-gradient(90deg, #48bb78 0%, #38a169 100%)';
+            document.getElementById('cursorCream').style.display = 'none';
+            
+            // Reset pause button
+            const pauseBtn = document.querySelector('.control-btn');
+            pauseBtn.textContent = 'Duraklat';
+        }
+
+        // End Game
+        function endGame() {
+            gameState.isPlaying = false;
+            
+            // Clear all timers
+            clearInterval(gameState.gameTimer);
+            clearInterval(gameState.spawnTimer);
+            clearInterval(gameState.difficultyTimer);
+            
+            // Clear all pain points
+            gameState.painPoints.forEach(point => {
+                if (point.element && point.element.parentNode) {
+                    point.element.remove();
+                }
+            });
+            gameState.painPoints = [];
+            
+            // Show final score with evaluation
+            document.getElementById('finalScore').textContent = gameState.score;
+            updateScoreEvaluation();
+            document.getElementById('gameOverScreen').style.display = 'flex';
+            document.getElementById('cursorCream').style.display = 'none';
+        }
+
+        // Score Evaluation
+        function updateScoreEvaluation() {
+            const scoreDescription = document.querySelector('.game-over-card .start-description');
+            const score = gameState.score;
+            
+            let message = "";
+            if (score >= 8000) {
+                message = "🏆 EFSANE! Diclomec uzmanısın! Mükemmel performans!";
+            } else if (score >= 6000) {
+                message = "🌟 HARİKA! Çok başarılı bir performans sergileddin!";
+            } else if (score >= 5000) {
+                message = "🎯 BAŞARILI! Hedefi geçtin! Diclomec ile ağrıları yendin!";
+            } else if (score >= 3500) {
+                message = "👍 İYİ! Hedefe yaklaştın! Biraz daha hızlı olabilirsin.";
+            } else if (score >= 2000) {
+                message = "😊 FENA DEĞİL! Pratik yaparak daha iyi olabilirsin.";
+            } else if (score >= 1000) {
+                message = "🤔 ORTA! Daha hızlı hareket etmeyi dene!";
+            } else if (score >= 500) {
+                message = "😅 BAŞLANGIÇ! Biraz daha odaklan ve tekrar dene!";
+            } else {
+                message = "😔 DÜŞÜK PUAN! Bir daha dene, bu sefer daha iyi olacak!";
+            }
+            
+            scoreDescription.textContent = message;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Only handle shortcuts if not typing in input fields
+            if (e.target.tagName === 'INPUT') return;
+            
+            if (e.code === 'Space' && gameState.isPlaying) {
+                e.preventDefault();
+                pauseGame();
+            } else if (e.code === 'KeyR' && gameState.isPlaying) {
+                e.preventDefault();
+                restartGame();
+            }
+        });
+
+        // Prevent context menu on right click
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Handle Enter key on login
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') {
+                login();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'974aea2db6c5fb87',t:'MTc1NjEyMzA3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
